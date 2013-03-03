@@ -12,5 +12,7 @@
 @interface PickupMessageViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *navigationView;
 @property (weak, nonatomic) IBOutlet UITableView *messageTableView;
+@property (weak, nonatomic) IBOutlet UIButton *dropButton;
+- (IBAction)dropButtonPressed:(UIButton *)sender;
 
 @end

@@ -15,6 +15,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.messageMapView.scrollEnabled = NO;
+        self.messageMapView.zoomEnabled = NO;
     }
     return self;
 }
