@@ -20,7 +20,29 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [SplashViewController new];
     [self.window makeKeyAndVisible];
+
+    /*FirebaseComm *fbc = [[FirebaseComm alloc] init];
+    [fbc initRecvFirebase:@"Ran"];
     
+    fbCallback callback = ^(FDataSnapshot *snapshot) {
+        NSDictionary *recv = [snapshot val];
+        for (NSString *key in recv) {
+            if (![fbc.drops containsObject:[recv objectForKey:key]]) {
+                NSLog(@"Added %@\n", [recv objectForKey:key]);
+                [fbc.drops addObject:[recv objectForKey:key]];
+            }
+        }
+    };
+    
+    [fbc loadReceivedFromFirebase:@"Ran" withCallback:callback];
+    
+    CLLocationCoordinate2D loc;
+    loc.latitude = 2.0;
+    loc.longitude = 2.0;
+    [fbc pushToFirebase:@"Jim" toUser:@"Ran" withMessage:@"Hi Ran" withLocation:loc withRoll:10.0];
+    [fbc pushToFirebase:@"Katherine" toUser:@"Ran" withMessage:@"Hello Ran" withLocation:loc withRoll:10.0];
+    [fbc pushToFirebase:@"Bob" toUser:@"Ran" withMessage:@"Where are you Ran" withLocation:loc withRoll:10.0];
+    [fbc pushToFirebase:@"Steve" toUser:@"Ran" withMessage:@"Talk to me Ran" withLocation:loc withRoll:10.0];*/
     
     return YES;
 }
