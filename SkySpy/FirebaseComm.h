@@ -21,9 +21,10 @@ typedef void (^fbCallback)(FDataSnapshot *snapshot);
 - (void)initRecvFirebase:(NSString *)user;
 - (void)pushToFirebase:(NSString *)fromUser
                 toUser:(NSString *)user
-            withMessage:(NSString *)message
-        withLocation:(CLLocationCoordinate2D)location
-            withRoll:(double)roll;
+           withMessage:(NSString *)message
+              withDate:(NSDate *)date
+          withLocation:(CLLocationCoordinate2D)location
+              withRoll:(double)roll;
 - (void)loadReceivedFromFirebase:(NSString *)user
                     withCallback:(void (^) (FDataSnapshot *snapshot))callback;
 

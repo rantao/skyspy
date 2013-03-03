@@ -30,6 +30,7 @@
 - (void)pushToFirebase:(NSString *)fromUser
                 toUser:(NSString *)user
            withMessage:(NSString *)message
+              withDate:(NSDate *)date
           withLocation:(CLLocationCoordinate2D)location
               withRoll:(double)roll
 {
@@ -39,11 +40,22 @@
     [sentPath appendString:@"/sent"];
     Firebase *sentfb = [[Firebase alloc] initWithUrl:sentPath];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+    NSString *formattedDateString = [dateFormatter stringFromDate:date];
+    
+    [dateFormatter setDateStyle:NSDateFormatterNoStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    NSString *formattedTimeString = [dateFormatter stringFromDate:date];
+    
     // Populate dictionaries
-    NSArray *sentkeys = [NSArray arrayWithObjects:@"to", @"message", @"latitude", @"longitude", @"roll", @"read", nil];
-    NSArray *recvkeys = [NSArray arrayWithObjects:@"from", @"message", @"latitude", @"longitude", @"roll", @"read", nil];
-    NSArray *sentobjs = [NSArray arrayWithObjects:user, message, [NSNumber numberWithDouble:location.latitude], [NSNumber numberWithDouble:location.longitude], [NSNumber numberWithDouble:roll], [NSNumber numberWithBool:false], nil];
-    NSArray *recvobjs = [NSArray arrayWithObjects:fromUser, message, [NSNumber numberWithDouble:location.latitude], [NSNumber numberWithDouble:location.longitude], [NSNumber numberWithDouble:roll], [NSNumber numberWithBool:false], nil];
+    NSArray *sentkeys = [NSArray arrayWithObjects:@"to", @"date", @"time", @"message", @"latitude", @"longitude", @"roll", @"read", nil];
+    NSArray *recvkeys = [NSArray arrayWithObjects:@"from", @"date", @"time", @"message", @"latitude", @"longitude", @"roll", @"read", nil];
+    NSArray *sentobjs = [NSArray arrayWithObjects:user, formattedDateString, formattedTimeString, message, [NSNumber numberWithDouble:location.latitude], [NSNumber numberWithDouble:location.longitude], [NSNumber numberWithDouble:roll], [NSNumber numberWithBool:false], nil];
+    NSArray *recvobjs = [NSArray arrayWithObjects:fromUser, formattedDateString, formattedTimeString, message, [NSNumber numberWithDouble:location.latitude], [NSNumber numberWithDouble:location.longitude], [NSNumber numberWithDouble:roll], [NSNumber numberWithBool:false], nil];
     NSDictionary *sentdict = [NSDictionary dictionaryWithObjects:sentobjs forKeys:sentkeys];
     NSDictionary *recvdict = [NSDictionary dictionaryWithObjects:recvobjs forKeys:recvkeys];
     
