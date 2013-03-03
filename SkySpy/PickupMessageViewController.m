@@ -26,7 +26,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.messages = [NSMutableArray new];
         [self getAllMessages];
+        
 
         
     }
@@ -68,13 +70,16 @@
 - (void) getAllMessages {
     FirebaseComm *fbc = [[FirebaseComm alloc] init]; 
      [fbc initRecvFirebase:@"Ran"];
+    fbc.drops = [NSMutableArray new];
      
      fbCallback callback = ^(FDataSnapshot *snapshot) {
          NSDictionary *recv = [snapshot val];
          for (NSString *key in recv) {
              if (![fbc.drops containsObject:[recv objectForKey:key]]) {
                  NSLog(@"Added %@\n", [recv objectForKey:key]);
+                 //[fbc.drops addObject:[recv objectForKey:key]];
                  [fbc.drops addObject:[recv objectForKey:key]];
+
              }
          }
          self.messages = fbc.drops;
@@ -84,6 +89,10 @@
      [fbc loadReceivedFromFirebase:@"Ran" withCallback:callback];
      
     //return fbc.drops;
+}
+
+-(void) renderMapView {
+    
 }
 
 #pragma mark - Table view data source
@@ -124,6 +133,8 @@
     //use custom cell layout
     cell.dateLabel.text = [[self.messages objectAtIndex:[indexPath section]] objectForKey:@"date"];
     cell.timeLabel.text = [[self.messages objectAtIndex:[indexPath section]] objectForKey:@"time"];
+    //[self performSelectorOnMainThread:@selector(renderMapView)withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
+
     CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"longitude"] doubleValue]);
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 100, 100);
     [cell.messageMapView setRegion:region animated:NO];
