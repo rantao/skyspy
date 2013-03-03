@@ -45,22 +45,23 @@
 -(void) showCameraFeed {
 	[self setCaptureManager:[CaptureSessionManager new]];
     
-	[[self captureManager] addVideoInput];
+	[self.captureManager addVideoInput];
     
-	[[self captureManager] addVideoPreviewLayer];
+	[self.captureManager addVideoPreviewLayer];
 	CGRect layerRect = [[[self view] layer] bounds];
-	[[[self captureManager] previewLayer] setBounds:layerRect];
-	[[[self captureManager] previewLayer] setPosition:CGPointMake(CGRectGetMidX(layerRect),
+	[[self.captureManager previewLayer] setBounds:layerRect];
+	[[self.captureManager previewLayer] setPosition:CGPointMake(CGRectGetMidX(layerRect),
                                                                   CGRectGetMidY(layerRect))];
-	[[[self view] layer] addSublayer:[[self captureManager] previewLayer]];
+	[self.view.layer addSublayer:[[self captureManager] previewLayer]];
     
-    self.instructions = [[UILabel alloc] initWithFrame:CGRectMake(100, 50, 120, 30)];
-	[self.instructions setBackgroundColor:[UIColor clearColor]];
-	[self.instructions setFont:[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0]];
-	[self.instructions setTextColor:[UIColor redColor]];
-	[self.instructions setText:@"Look up to the sky..."];
-    [self.instructions setHidden:YES];
-	[[self view] addSubview:self.instructions];
+    self.instructions = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width-240)/2.0, 50, 240, 30)];
+    self.instructions.backgroundColor = [UIColor clearColor];
+    self.instructions.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
+    self.instructions.textColor = [UIColor whiteColor];
+	self.instructions.text = @"^^ LOOK UP IN THE SKY ^^";
+    self.instructions.textAlignment = NSTextAlignmentCenter;
+    self.instructions.hidden = NO;
+	[self.view addSubview:self.instructions];
     
 	[[self.captureManager captureSession] startRunning];
     
