@@ -19,6 +19,16 @@
 @synthesize drops;
 @synthesize recvfb;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.drops = [[NSMutableArray alloc] init];
+    }
+    
+    return self;
+}
+
 - (void)initRecvFirebase:(NSString *)user
 {
     NSMutableString *recvPath = [[NSMutableString alloc] initWithString:FIREBASE_ADDR];
