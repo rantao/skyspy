@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "SplashViewController.h"
+#import <Firebase/Firebase.h>
+
 
 @implementation AppDelegate
 
@@ -15,7 +18,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [SplashViewController new];
     [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
