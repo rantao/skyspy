@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1565044316E3E99B00D57F77 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1565044216E3E99B00D57F77 /* MBProgressHUD.m */; };
 		15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */; };
 		15F01FEF16E2DFC2009DEAAF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */; };
 		15F01FF116E2E07C009DEAAF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FF016E2E07C009DEAAF /* CoreMotion.framework */; };
@@ -44,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1565044116E3E99B00D57F77 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1565044216E3E99B00D57F77 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		15F01FEB16E2DAE5009DEAAF /* FirebaseComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseComm.h; sourceTree = "<group>"; };
 		15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseComm.m; sourceTree = "<group>"; };
 		15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -160,6 +163,8 @@
 				25596A5C16E327DF00EFC691 /* SplashViewController.xib */,
 				25596A4E16E2EB7800EFC691 /* PickupMessageViewController.h */,
 				25596A4F16E2EB7800EFC691 /* PickupMessageViewController.m */,
+				1565044116E3E99B00D57F77 /* MBProgressHUD.h */,
+				1565044216E3E99B00D57F77 /* MBProgressHUD.m */,
 				25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */,
 				25596ABD16E347C300EFC691 /* MessageTableCell.h */,
 				25596ABE16E347C300EFC691 /* MessageTableCell.m */,
@@ -279,6 +284,7 @@
 				25596A5816E3020A00EFC691 /* CaptureSessionManager.m in Sources */,
 				15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */,
 				25596ABF16E347C300EFC691 /* MessageTableCell.m in Sources */,
+				1565044316E3E99B00D57F77 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

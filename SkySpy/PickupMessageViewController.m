@@ -15,7 +15,8 @@
 @interface PickupMessageViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSMutableArray *messages;
-@property (nonatomic, strong) NSArray *messageMaps;
+@property (nonatomic, strong) NSMutableArray *messageMaps;
+@property (nonatomic, strong) dispatch_semaphore_t semaphore;
 //@property (nonatomic, strong) MKMapView *map;
 @end
 
@@ -52,19 +53,40 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"messageTable_bg.png"]];
     self.messageTableView.delegate = self;
     self.messageTableView.dataSource = self;
+    self.messageTableView.hidden = YES;
     [self getUUId];
+    self.semaphore = dispatch_semaphore_create(0);
 
-
-    self.messageMaps = [NSArray new];
-    for (int i=0; i < self.messages.count; i++) {
-//        CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:i] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:i] objectForKey:@"longitude"] doubleValue]);
-//        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 100, 100);
-//        MKMapView *map = [MKMapView new];
-//        [map setRegion:region animated:NO];
-        
-
+    self.messageMaps = [NSMutableArray new];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Loading";
+    [hud showAnimated:YES
+  whileExecutingBlock:^(void)
+    {
+        [self getAllMessages];
+        dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     }
+      completionBlock:^(void)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self populateMapViews];
+            [self.messageTableView reloadData];
+            self.messageTableView.hidden = NO;
+        });
+    }];
+}
 
+- (void)populateMapViews
+{
+    for (int i = 0; i < self.messages.count; i++) {
+        CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:i] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:i] objectForKey:@"longitude"] doubleValue]);
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 100, 100);
+        MKMapView *map = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 80)];
+        [map setRegion:region animated:NO];
+        [self.messageMaps addObject:map];
+    }
 }
 
 - (void) getAllMessages {
@@ -82,8 +104,13 @@
 
              }
          }
+         
+         
          self.messages = fbc.drops;
-         [self.messageTableView reloadData];
+         //[self populateMapViews];
+         //[self.messageTableView reloadData];
+         //self.messageTableView.hidden = NO;
+         dispatch_semaphore_signal(self.semaphore);
      };
      
      [fbc loadReceivedFromFirebase:@"Ran" withCallback:callback];
@@ -131,13 +158,15 @@
     //    cell.imageView.image = [UIImage imageWithData:[[secrets objectAtIndex:[indexPath row]] imageData]];
     
     //use custom cell layout
-    cell.dateLabel.text = [[self.messages objectAtIndex:[indexPath section]] objectForKey:@"date"];
-    cell.timeLabel.text = [[self.messages objectAtIndex:[indexPath section]] objectForKey:@"time"];
+    cell.dateLabel.text = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"date"];
+    cell.timeLabel.text = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"time"];
     //[self performSelectorOnMainThread:@selector(renderMapView)withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
 
-    CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"longitude"] doubleValue]);
+    /*CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"longitude"] doubleValue]);
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 100, 100);
-    [cell.messageMapView setRegion:region animated:NO];
+    [cell.messageMapView setRegion:region animated:NO];*/
+    cell.messageMapView = [self.messageMaps objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
