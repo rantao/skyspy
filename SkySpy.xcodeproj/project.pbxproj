@@ -22,10 +22,12 @@
 		25596A5D16E327DF00EFC691 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596A5C16E327DF00EFC691 /* SplashViewController.xib */; };
 		25596ABC16E33DEF00EFC691 /* PickupMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */; };
 		25596ABF16E347C300EFC691 /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596ABE16E347C300EFC691 /* MessageTableCell.m */; };
-		25596AC316E3483700EFC691 /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596AC216E3483700EFC691 /* MessageTableCell.xib */; };
 		25596AC516E34F7700EFC691 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596AC416E34F7700EFC691 /* MapKit.framework */; };
 		25596AC816E35F7500EFC691 /* messageTable_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AC616E35F7500EFC691 /* messageTable_bg.png */; };
 		25596AC916E35F7500EFC691 /* messageTable_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AC716E35F7500EFC691 /* messageTable_bg@2x.png */; };
+		25596ACB16E3FACF00EFC691 /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596ACA16E3FACF00EFC691 /* MessageTableCell.xib */; };
+		25596ACF16E4009800EFC691 /* MessageMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596ACD16E4009800EFC691 /* MessageMapViewController.m */; };
+		25596AD016E4009800EFC691 /* MessageMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596ACE16E4009800EFC691 /* MessageMapViewController.xib */; };
 		2591EA8C16E2A89D00C352B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8B16E2A89D00C352B9 /* UIKit.framework */; };
 		2591EA8E16E2A89D00C352B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8D16E2A89D00C352B9 /* Foundation.framework */; };
 		2591EA9016E2A89D00C352B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8F16E2A89D00C352B9 /* CoreGraphics.framework */; };
@@ -65,10 +67,13 @@
 		25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickupMessageViewController.xib; sourceTree = "<group>"; };
 		25596ABD16E347C300EFC691 /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
 		25596ABE16E347C300EFC691 /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
-		25596AC216E3483700EFC691 /* MessageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableCell.xib; sourceTree = "<group>"; };
 		25596AC416E34F7700EFC691 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		25596AC616E35F7500EFC691 /* messageTable_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messageTable_bg.png; sourceTree = "<group>"; };
 		25596AC716E35F7500EFC691 /* messageTable_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageTable_bg@2x.png"; sourceTree = "<group>"; };
+		25596ACA16E3FACF00EFC691 /* MessageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableCell.xib; sourceTree = "<group>"; };
+		25596ACC16E4009800EFC691 /* MessageMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMapViewController.h; sourceTree = "<group>"; };
+		25596ACD16E4009800EFC691 /* MessageMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMapViewController.m; sourceTree = "<group>"; };
+		25596ACE16E4009800EFC691 /* MessageMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageMapViewController.xib; sourceTree = "<group>"; };
 		2591EA8816E2A89D00C352B9 /* SkySpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkySpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591EA8B16E2A89D00C352B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2591EA8D16E2A89D00C352B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -163,18 +168,21 @@
 				25596A5C16E327DF00EFC691 /* SplashViewController.xib */,
 				25596A4E16E2EB7800EFC691 /* PickupMessageViewController.h */,
 				25596A4F16E2EB7800EFC691 /* PickupMessageViewController.m */,
-				1565044116E3E99B00D57F77 /* MBProgressHUD.h */,
-				1565044216E3E99B00D57F77 /* MBProgressHUD.m */,
 				25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */,
+				25596ACC16E4009800EFC691 /* MessageMapViewController.h */,
+				25596ACD16E4009800EFC691 /* MessageMapViewController.m */,
+				25596ACE16E4009800EFC691 /* MessageMapViewController.xib */,
 				25596ABD16E347C300EFC691 /* MessageTableCell.h */,
 				25596ABE16E347C300EFC691 /* MessageTableCell.m */,
-				25596AC216E3483700EFC691 /* MessageTableCell.xib */,
+				25596ACA16E3FACF00EFC691 /* MessageTableCell.xib */,
 				25596A4B16E2EB3D00EFC691 /* DropMessageViewController.h */,
 				25596A4C16E2EB3D00EFC691 /* DropMessageViewController.m */,
 				25596A5616E3020A00EFC691 /* CaptureSessionManager.h */,
 				25596A5716E3020A00EFC691 /* CaptureSessionManager.m */,
 				15F01FEB16E2DAE5009DEAAF /* FirebaseComm.h */,
 				15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */,
+				1565044116E3E99B00D57F77 /* MBProgressHUD.h */,
+				1565044216E3E99B00D57F77 /* MBProgressHUD.m */,
 				2591EA9216E2A89D00C352B9 /* Supporting Files */,
 			);
 			path = SkySpy;
@@ -263,9 +271,10 @@
 				25596A4A16E2E8CE00EFC691 /* pickupbutton.png in Resources */,
 				25596A5D16E327DF00EFC691 /* SplashViewController.xib in Resources */,
 				25596ABC16E33DEF00EFC691 /* PickupMessageViewController.xib in Resources */,
-				25596AC316E3483700EFC691 /* MessageTableCell.xib in Resources */,
 				25596AC816E35F7500EFC691 /* messageTable_bg.png in Resources */,
 				25596AC916E35F7500EFC691 /* messageTable_bg@2x.png in Resources */,
+				25596ACB16E3FACF00EFC691 /* MessageTableCell.xib in Resources */,
+				25596AD016E4009800EFC691 /* MessageMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +294,7 @@
 				15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */,
 				25596ABF16E347C300EFC691 /* MessageTableCell.m in Sources */,
 				1565044316E3E99B00D57F77 /* MBProgressHUD.m in Sources */,
+				25596ACF16E4009800EFC691 /* MessageMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,10 +9,12 @@
 #import "PickupMessageViewController.h"
 #import "FirebaseComm.h"
 #import "MessageTableCell.h"
+#import "MessageMapViewController.h"
+#import "DropMessageViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface PickupMessageViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface PickupMessageViewController () <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate>
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) NSMutableArray *messageMaps;
@@ -82,9 +84,11 @@
 {
     for (int i = 0; i < self.messages.count; i++) {
         CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:i] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:i] objectForKey:@"longitude"] doubleValue]);
-        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 100, 100);
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 1000, 1000);
         MKMapView *map = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 80)];
         [map setRegion:region animated:NO];
+        map.scrollEnabled = NO;
+        map.zoomEnabled = NO;
         [self.messageMaps addObject:map];
     }
 }
@@ -136,43 +140,47 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    static NSString *CellIdentifier = @"Cell";
+//    NSInteger row = [indexPath row];
+//    UITableViewCell *cell = nil;
+//    if( row != kMapCellRow ) { // defined value to whatever value it may be
+//        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    }
+//    else {
+//        // use an ivar to track the map cell, should be set to nil in class init
+//        cell = _mapCell;
+//    }
+//    if (cell == nil) {
+//        if( row != kMapCellRow ) { // defined value to whatever value it may be
+//            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+//        }
+//        else {
+//            // create your map cell here
+//            cell = [[[MyTableViewMapCell alloc] init];
+//        }
+    
+    
     
     static NSString *CellIdentifier = @"Cell";
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     MessageTableCell *cell = (MessageTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
-        //instead use custom cell
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MessageTableCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
-    // Configure the cell...
-    //NSMutableArray *messages = [self getAllMessages];
-    //    cell.textLabel.text = [[secrets objectAtIndex:[indexPath row]] entry];
-    //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //    [formatter setDateFormat:@"EEEE MM.dd.yyyy 'at' hh:mm a"];
-    //    NSString *stringFromDate = [formatter stringFromDate:[[secrets objectAtIndex:[indexPath row]] date]];
-    //    cell.detailTextLabel.text = stringFromDate;
-    //    cell.imageView.image = [UIImage imageWithData:[[secrets objectAtIndex:[indexPath row]] imageData]];
-    
+        
     //use custom cell layout
     cell.dateLabel.text = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"date"];
     cell.timeLabel.text = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"time"];
-    //[self performSelectorOnMainThread:@selector(renderMapView)withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
-
-    /*CLLocationCoordinate2D messageLocation = CLLocationCoordinate2DMake([[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"latitude"] doubleValue], [[[self.messages objectAtIndex:[indexPath section]] objectForKey:@"longitude"] doubleValue]);
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(messageLocation, 100, 100);
-    [cell.messageMapView setRegion:region animated:NO];*/
-    cell.messageMapView = [self.messageMaps objectAtIndex:indexPath.row];
+    MKMapView *currentMap = [self.messageMaps objectAtIndex:indexPath.row];
+    cell.messageMapView.region = currentMap.region;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 82;
 }
 
 
@@ -219,16 +227,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+   
+    MessageMapViewController *messageMapViewController = [MessageMapViewController new];
+    
+    MKMapView *currentMap = [self.messageMaps objectAtIndex:indexPath.row];
+    NSString *messageDate = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"date"];
+    NSString *messageTime = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"time"];
+    NSLog(@"indexpath row is: %ld\nmessageDate is: %@\nmessageTime is: %@",(long)indexPath.row, messageDate, messageTime);
+
+    messageMapViewController.date = messageDate;
+    messageMapViewController.time = messageTime;
+    messageMapViewController.mapCenter = currentMap.centerCoordinate;
+    [self presentViewController:messageMapViewController animated:YES completion:nil];
+    
 }
 
 
+- (IBAction)dropButtonPressed:(UIButton *)sender {
+    DropMessageViewController *dropMessageViewController = [DropMessageViewController new];
+    [self presentViewController:dropMessageViewController animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning
 {

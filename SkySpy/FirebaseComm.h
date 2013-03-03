@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Firebase/Firebase.h>
 
-#define FIREBASE_ADDR   @"https://skyspytest.firebaseio.com/"
+#define FIREBASE_ADDR   @"https://skyspy.firebaseio.com/"
 
 typedef void (^fbCallback)(FDataSnapshot *snapshot);
 
