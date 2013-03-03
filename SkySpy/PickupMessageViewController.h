@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PickupMessageViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIView *navigationView;
+@property (weak, nonatomic) IBOutlet UITableView *messageTableView;
 
 @end

@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
+		15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */; };
+		15F01FEF16E2DFC2009DEAAF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */; };
+		15F01FF116E2E07C009DEAAF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FF016E2E07C009DEAAF /* CoreMotion.framework */; };
 		25596A4916E2E8CE00EFC691 /* dropbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596A4716E2E8CE00EFC691 /* dropbutton.png */; };
 		25596A4A16E2E8CE00EFC691 /* pickupbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596A4816E2E8CE00EFC691 /* pickupbutton.png */; };
 		25596A4D16E2EB3D00EFC691 /* DropMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596A4C16E2EB3D00EFC691 /* DropMessageViewController.m */; };
@@ -16,9 +18,13 @@
 		25596A5416E2EF3A00EFC691 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596A5316E2EF3A00EFC691 /* AVFoundation.framework */; };
 		25596A5516E2F5C700EFC691 /* RenegadeMaster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2591EAB416E2DEB500C352B9 /* RenegadeMaster.ttf */; };
 		25596A5816E3020A00EFC691 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596A5716E3020A00EFC691 /* CaptureSessionManager.m */; };
-		15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */; };
-		15F01FEF16E2DFC2009DEAAF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */; };
-		15F01FF116E2E07C009DEAAF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FF016E2E07C009DEAAF /* CoreMotion.framework */; };
+		25596A5D16E327DF00EFC691 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596A5C16E327DF00EFC691 /* SplashViewController.xib */; };
+		25596ABC16E33DEF00EFC691 /* PickupMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */; };
+		25596ABF16E347C300EFC691 /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596ABE16E347C300EFC691 /* MessageTableCell.m */; };
+		25596AC316E3483700EFC691 /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596AC216E3483700EFC691 /* MessageTableCell.xib */; };
+		25596AC516E34F7700EFC691 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596AC416E34F7700EFC691 /* MapKit.framework */; };
+		25596AC816E35F7500EFC691 /* messageTable_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AC616E35F7500EFC691 /* messageTable_bg.png */; };
+		25596AC916E35F7500EFC691 /* messageTable_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AC716E35F7500EFC691 /* messageTable_bg@2x.png */; };
 		2591EA8C16E2A89D00C352B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8B16E2A89D00C352B9 /* UIKit.framework */; };
 		2591EA8E16E2A89D00C352B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8D16E2A89D00C352B9 /* Foundation.framework */; };
 		2591EA9016E2A89D00C352B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8F16E2A89D00C352B9 /* CoreGraphics.framework */; };
@@ -38,6 +44,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15F01FEB16E2DAE5009DEAAF /* FirebaseComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseComm.h; sourceTree = "<group>"; };
+		15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseComm.m; sourceTree = "<group>"; };
+		15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		15F01FF016E2E07C009DEAAF /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		25596A4716E2E8CE00EFC691 /* dropbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbutton.png; sourceTree = "<group>"; };
 		25596A4816E2E8CE00EFC691 /* pickupbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupbutton.png; sourceTree = "<group>"; };
 		25596A4B16E2EB3D00EFC691 /* DropMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropMessageViewController.h; sourceTree = "<group>"; };
@@ -48,10 +58,14 @@
 		25596A5316E2EF3A00EFC691 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		25596A5616E3020A00EFC691 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
 		25596A5716E3020A00EFC691 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
-		15F01FEB16E2DAE5009DEAAF /* FirebaseComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseComm.h; sourceTree = "<group>"; };
-		15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseComm.m; sourceTree = "<group>"; };
-		15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		15F01FF016E2E07C009DEAAF /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		25596A5C16E327DF00EFC691 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
+		25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickupMessageViewController.xib; sourceTree = "<group>"; };
+		25596ABD16E347C300EFC691 /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
+		25596ABE16E347C300EFC691 /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
+		25596AC216E3483700EFC691 /* MessageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableCell.xib; sourceTree = "<group>"; };
+		25596AC416E34F7700EFC691 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		25596AC616E35F7500EFC691 /* messageTable_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messageTable_bg.png; sourceTree = "<group>"; };
+		25596AC716E35F7500EFC691 /* messageTable_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageTable_bg@2x.png"; sourceTree = "<group>"; };
 		2591EA8816E2A89D00C352B9 /* SkySpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkySpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591EA8B16E2A89D00C352B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2591EA8D16E2A89D00C352B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -81,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25596AC516E34F7700EFC691 /* MapKit.framework in Frameworks */,
 				25596A5416E2EF3A00EFC691 /* AVFoundation.framework in Frameworks */,
 				25596A5216E2EE4D00EFC691 /* MobileCoreServices.framework in Frameworks */,
 				15F01FF116E2E07C009DEAAF /* CoreMotion.framework in Frameworks */,
@@ -118,6 +133,7 @@
 		2591EA8A16E2A89D00C352B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25596AC416E34F7700EFC691 /* MapKit.framework */,
 				15F01FF016E2E07C009DEAAF /* CoreMotion.framework */,
 				15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */,
 				2591EAAA16E2C9AC00C352B9 /* CFNetwork.framework */,
@@ -141,8 +157,13 @@
 				2591EA9B16E2A89E00C352B9 /* AppDelegate.m */,
 				2591EAB016E2D1CD00C352B9 /* SplashViewController.h */,
 				2591EAB116E2D1CD00C352B9 /* SplashViewController.m */,
+				25596A5C16E327DF00EFC691 /* SplashViewController.xib */,
 				25596A4E16E2EB7800EFC691 /* PickupMessageViewController.h */,
 				25596A4F16E2EB7800EFC691 /* PickupMessageViewController.m */,
+				25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */,
+				25596ABD16E347C300EFC691 /* MessageTableCell.h */,
+				25596ABE16E347C300EFC691 /* MessageTableCell.m */,
+				25596AC216E3483700EFC691 /* MessageTableCell.xib */,
 				25596A4B16E2EB3D00EFC691 /* DropMessageViewController.h */,
 				25596A4C16E2EB3D00EFC691 /* DropMessageViewController.m */,
 				25596A5616E3020A00EFC691 /* CaptureSessionManager.h */,
@@ -157,6 +178,8 @@
 		2591EA9216E2A89D00C352B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				25596AC616E35F7500EFC691 /* messageTable_bg.png */,
+				25596AC716E35F7500EFC691 /* messageTable_bg@2x.png */,
 				25596A4716E2E8CE00EFC691 /* dropbutton.png */,
 				25596A4816E2E8CE00EFC691 /* pickupbutton.png */,
 				2591EAB816E2E3A900C352B9 /* dropbutton@2x.png */,
@@ -233,6 +256,11 @@
 				2591EABB16E2E3A900C352B9 /* pickupbutton@2x.png in Resources */,
 				25596A4916E2E8CE00EFC691 /* dropbutton.png in Resources */,
 				25596A4A16E2E8CE00EFC691 /* pickupbutton.png in Resources */,
+				25596A5D16E327DF00EFC691 /* SplashViewController.xib in Resources */,
+				25596ABC16E33DEF00EFC691 /* PickupMessageViewController.xib in Resources */,
+				25596AC316E3483700EFC691 /* MessageTableCell.xib in Resources */,
+				25596AC816E35F7500EFC691 /* messageTable_bg.png in Resources */,
+				25596AC916E35F7500EFC691 /* messageTable_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +278,7 @@
 				25596A5016E2EB7800EFC691 /* PickupMessageViewController.m in Sources */,
 				25596A5816E3020A00EFC691 /* CaptureSessionManager.m in Sources */,
 				15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */,
+				25596ABF16E347C300EFC691 /* MessageTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +367,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -355,6 +385,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
