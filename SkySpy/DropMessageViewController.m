@@ -9,6 +9,9 @@
 #import "DropMessageViewController.h"
 #import "CaptureSessionManager.h"
 #import <AVFoundation/AVFoundation.h>
+#import <CoreMotion/CoreMotion.h>
+
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
 @interface DropMessageViewController ()
 @property (nonatomic, strong) UIView *cameraView;
@@ -16,6 +19,9 @@
 @property (nonatomic, retain) UILabel *instructions;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) CMMotionManager *motionManager;
+@property (nonatomic, strong) CMAttitude *attitude;
+@property (nonatomic, strong) UIButton *dropButton;
 @end
 
 @implementation DropMessageViewController
@@ -39,6 +45,42 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self showCameraFeed];
+    self.dropButton = [[UIButton alloc] initWithFrame: CGRectMake((self.view.frame.size.width - 128)/2.0, 50, 128, 128)];
+    self.dropButton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dropbutton.png"]];
+    [self.dropButton addTarget:self action:@selector(dropButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.motionManager = [[CMMotionManager alloc] init];
+    if (self.motionManager.gyroAvailable) {
+        self.motionManager.gyroUpdateInterval = 1.0;
+        [self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryCorrectedZVertical
+                                                                toQueue:[NSOperationQueue currentQueue]
+                                                            withHandler:^(CMDeviceMotion *motion, NSError *error)
+        {
+            self.attitude = motion.attitude;
+                                                                
+            if (5 <= RADIANS_TO_DEGREES(self.attitude.pitch) &&
+                60 >= RADIANS_TO_DEGREES(self.attitude.pitch) &&
+                100 <= RADIANS_TO_DEGREES(self.attitude.yaw))
+            {
+                [UIView transitionWithView:self.instructions
+                                  duration:1.0
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^{
+                                    self.instructions.alpha = 0.0;
+                                }
+                                completion:^(BOOL finished) {
+                                    if (finished) {
+                                        [self.view addSubview:self.dropButton];
+                                    }
+                                }];
+            }
+            
+            //NSLog(@"%f, %f", RADIANS_TO_DEGREES(self.attitude.pitch), RADIANS_TO_DEGREES(self.attitude.yaw));
+        }];
+    }
+    else {
+        NSLog(@"No gyroscope on device.");
+    }
 }
 
 
@@ -66,6 +108,10 @@
 	[[self.captureManager captureSession] startRunning];
     
     
+}
+
+- (void) dropButtonPressed: (UIButton *) sender {
+
 }
 
 - (void)didReceiveMemoryWarning
