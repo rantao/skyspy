@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FirebaseComm.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
