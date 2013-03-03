@@ -10,4 +10,8 @@
 
 @interface DropMessageViewController : UIViewController
 
+@property (nonatomic, strong) NSString *fromUser;
+@property (nonatomic, strong) NSString *toUser;
+@property (nonatomic, strong) NSString *message;
+
 @end

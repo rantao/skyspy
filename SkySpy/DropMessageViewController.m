@@ -8,29 +8,39 @@
 
 #import "DropMessageViewController.h"
 #import "CaptureSessionManager.h"
+#import "FirebaseComm.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import <CoreLocation/CoreLocation.h>
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
-@interface DropMessageViewController ()
+@interface DropMessageViewController () <CLLocationManagerDelegate>
 @property (nonatomic, strong) UIView *cameraView;
 @property (nonatomic, strong) CaptureSessionManager *captureManager;
 @property (nonatomic, retain) UILabel *instructions;
+@property (nonatomic, retain) UILabel *msg;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, strong) CMAttitude *attitude;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UIButton *dropButton;
+@property (nonatomic) CLLocationCoordinate2D coords;
 @end
 
 @implementation DropMessageViewController
+
+@synthesize fromUser;
+@synthesize toUser;
+@synthesize message;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.message = @"Hi Ran";
         self.view.backgroundColor = [UIColor blackColor];
         [self setCaptureSession:[[AVCaptureSession alloc] init]];
 
@@ -45,10 +55,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self showCameraFeed];
-    self.dropButton = [[UIButton alloc] initWithFrame: CGRectMake((self.view.frame.size.width - 128)/2.0, 50, 128, 128)];
+    self.dropButton = [[UIButton alloc] initWithFrame: CGRectMake((self.view.frame.size.width - 128)/2.0, 320, 128, 128)];
     self.dropButton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dropbutton.png"]];
     [self.dropButton addTarget:self action:@selector(dropButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.dropButton.alpha = 0.0;
+    self.dropButton.userInteractionEnabled = NO;
+    [self.view addSubview:self.dropButton];
     
+    // Start tracking pitch
     self.motionManager = [[CMMotionManager alloc] init];
     if (self.motionManager.gyroAvailable) {
         self.motionManager.gyroUpdateInterval = 1.0;
@@ -57,7 +71,8 @@
                                                             withHandler:^(CMDeviceMotion *motion, NSError *error)
         {
             self.attitude = motion.attitude;
-                                                                
+
+            // TODO: change
             if (5 <= RADIANS_TO_DEGREES(self.attitude.pitch) &&
                 60 >= RADIANS_TO_DEGREES(self.attitude.pitch) &&
                 100 <= RADIANS_TO_DEGREES(self.attitude.yaw))
@@ -70,7 +85,12 @@
                                 }
                                 completion:^(BOOL finished) {
                                     if (finished) {
-                                        [self.view addSubview:self.dropButton];
+                                        self.dropButton.userInteractionEnabled = YES;
+                                        [UIView animateWithDuration:1.0
+                                                         animations:^{
+                                                             self.msg.alpha = 1.0;
+                                                             self.dropButton.alpha = 1.0;
+                                                         }];
                                     }
                                 }];
             }
@@ -81,6 +101,18 @@
     else {
         NSLog(@"No gyroscope on device.");
     }
+    
+    // Start location services
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.locationManager stopUpdatingLocation];
+    [super viewWillDisappear:animated];
 }
 
 
@@ -105,13 +137,38 @@
     self.instructions.hidden = NO;
 	[self.view addSubview:self.instructions];
     
+    self.msg = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width-240)/2.0, 50, 240, 30)];
+    self.msg.backgroundColor = [UIColor clearColor];
+    self.msg.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
+    self.msg.textColor = [UIColor whiteColor];
+	self.msg.text = self.message;
+    self.msg.textAlignment = NSTextAlignmentCenter;
+    self.msg.hidden = NO;
+    self.msg.alpha = 0.0;
+    [self.view addSubview:self.msg];
+    
 	[[self.captureManager captureSession] startRunning];
-    
-    
 }
 
 - (void) dropButtonPressed: (UIButton *) sender {
+    self.fromUser = @"Jim";
+    self.toUser = @"Ran";
+    
+    FirebaseComm *fbc = [[FirebaseComm alloc] init];
+    [fbc initRecvFirebase:self.toUser];
+    [fbc pushToFirebase:self.fromUser
+                 toUser:self.toUser
+            withMessage:self.message
+               withDate:[NSDate date]
+           withLocation:self.coords
+               withRoll:RADIANS_TO_DEGREES(self.attitude.pitch)];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *loc = [locations lastObject];
+    self.coords = [loc coordinate];
 }
 
 - (void)didReceiveMemoryWarning
