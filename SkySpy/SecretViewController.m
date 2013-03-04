@@ -36,6 +36,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.secret = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width-240)/2.0, 50, 240, 30)];
+    self.secret.backgroundColor = [UIColor clearColor];
+    self.secret.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
+    self.secret.textColor = [UIColor whiteColor];
+	self.secret.text = self.msg;
+    NSLog(@"secret: %@", self.msg);
+    self.secret.textAlignment = NSTextAlignmentCenter;
+    self.secret.hidden = YES;
+    [self.view addSubview:self.secret];
     [self showCameraFeed];
 }
 
@@ -87,16 +96,15 @@
                                                                 CGRectGetMidY(layerRect))];
 	[self.view.layer addSublayer:[[self captureManager] previewLayer]];
     
-    self.secret = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width-240)/2.0, 50, 240, 30)];
-    self.secret.backgroundColor = [UIColor clearColor];
-    self.secret.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
-    self.secret.textColor = [UIColor whiteColor];
-	self.secret.text = self.msg;
-    NSLog(@"secret: %@", self.msg);
-    self.secret.textAlignment = NSTextAlignmentCenter;
+//    self.secret = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width-240)/2.0, 50, 240, 30)];
+//    self.secret.backgroundColor = [UIColor clearColor];
+//    self.secret.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
+//    self.secret.textColor = [UIColor whiteColor];
+//	self.secret.text = self.msg;
+//    NSLog(@"secret: %@", self.msg);
+//    self.secret.textAlignment = NSTextAlignmentCenter;
     self.secret.hidden = NO;
     self.secret.alpha = 0.0;
-	[self.view addSubview:self.secret];
     
     // TODO possibly add button to trigger message reveal
     
