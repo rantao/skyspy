@@ -8,6 +8,7 @@
 
 #import "SecretViewController.h"
 #import "CaptureSessionManager.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SecretViewController ()
 @property (nonatomic, strong) CaptureSessionManager *captureManager;
@@ -18,7 +19,7 @@
 
 @implementation SecretViewController
 
-@synthesize msg;
+//@synthesize msg;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +37,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self showCameraFeed];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [UIView transitionWithView:self.secret
                       duration:1.0
                        options:UIViewAnimationOptionTransitionCrossDissolve
@@ -44,6 +49,30 @@
                         self.secret.alpha = 1.0;
                     }
                     completion:nil];
+}
+
+- (void)addVideoPreviewLayer {
+	[self setPreviewLayer:[[AVCaptureVideoPreviewLayer alloc] initWithSession:[self captureSession]]];
+	[[self previewLayer] setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    
+}
+
+- (void)addVideoInput {
+	AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	if (videoDevice) {
+		NSError *error;
+		AVCaptureDeviceInput *videoIn = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
+		if (!error) {
+			if ([[self captureSession] canAddInput:videoIn])
+				[[self captureSession] addInput:videoIn];
+			else
+				NSLog(@"Couldn't add video input");
+		}
+		else
+			NSLog(@"Couldn't create video input");
+	}
+	else
+		NSLog(@"Couldn't create video capture device");
 }
 
 -(void) showCameraFeed {
@@ -60,9 +89,10 @@
     
     self.secret = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width-240)/2.0, 50, 240, 30)];
     self.secret.backgroundColor = [UIColor clearColor];
-    self.secret.font =[UIFont fontWithName:@"Renegade Master" size: 20];
+    self.secret.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
     self.secret.textColor = [UIColor whiteColor];
 	self.secret.text = self.msg;
+    NSLog(@"secret: %@", self.msg);
     self.secret.textAlignment = NSTextAlignmentCenter;
     self.secret.hidden = NO;
     self.secret.alpha = 0.0;
@@ -77,6 +107,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    
+	[[self captureSession] stopRunning];
+    self.previewLayer = nil;
+	self.captureSession = nil;
+    
 }
 
 @end

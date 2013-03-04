@@ -12,7 +12,9 @@
 
 @interface MessageMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLRegion *region;
 @property (nonatomic) CLLocationCoordinate2D dropPoint;
+@property (nonatomic, strong) SecretViewController *svc;
 @end
 
 
@@ -40,7 +42,11 @@
     messageAnnotation.coordinate = self.mapCenter;
     [self.messageMapView addAnnotation:messageAnnotation];
     [self.messageMapView setRegion:region animated:NO];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     // Start region monitoring
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -49,20 +55,28 @@
     if ([CLLocationManager regionMonitoringAvailable] &&
         ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
          [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
-            CLLocationDistance radius = self.radius; // 10 meter radius
-            CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:self.mapCenter
-                                                                       radius:radius
-                                                                   identifier:self.dropPointName];
-            NSLog(@"here");
-            NSLog(@"%f", self.mapCenter.latitude);
-            NSLog(@"%f", self.mapCenter.longitude);
-            [self.locationManager startMonitoringForRegion:region];
+            self.region = [[CLRegion alloc] initCircularRegionWithCenter:self.mapCenter
+                                                                  radius:self.radius
+                                                              identifier:self.dropPointName];
+            [self.locationManager startUpdatingLocation];
         }
-    
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *loc = [locations lastObject];
+    if ([self.region containsCoordinate:[loc coordinate]])
+    {
+        if (!self.svc) {
+            self.svc = [SecretViewController new];
+            self.svc.msg = self.msg;
+            NSLog(@"loc: %@", self.svc.msg);
+            [self presentViewController:self.svc animated:YES completion:nil];
+        }
+    }
+}
 
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+/*- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     NSLog(@"in region\n");
     if ([region.identifier isEqualToString:self.dropPointName])
@@ -80,7 +94,7 @@
     {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-}
+}*/
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
