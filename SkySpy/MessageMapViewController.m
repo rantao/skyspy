@@ -15,6 +15,7 @@
 @property (nonatomic, strong) CLRegion *region;
 @property (nonatomic) CLLocationCoordinate2D dropPoint;
 @property (nonatomic, strong) SecretViewController *svc;
+@property (nonatomic) BOOL svcPresented;
 @end
 
 
@@ -42,6 +43,7 @@
     messageAnnotation.coordinate = self.mapCenter;
     [self.messageMapView addAnnotation:messageAnnotation];
     [self.messageMapView setRegion:region animated:NO];
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -72,6 +74,12 @@
             self.svc.msg = self.msg;
             NSLog(@"loc: %@", self.svc.msg);
             [self presentViewController:self.svc animated:YES completion:nil];
+            self.svcPresented = YES;
+        }
+    } else {
+        if (self.svcPresented) {
+            [self.svc dismissViewControllerAnimated:YES completion:nil];
+            self.svcPresented = NO;
         }
     }
 }
