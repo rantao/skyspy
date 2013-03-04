@@ -10,6 +10,8 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
+
 
 @interface ContactsViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *contactPickerButton;
@@ -17,6 +19,7 @@
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic) CLLocationCoordinate2D location;
+@property (nonatomic, strong) CMAttitude *attitude;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak,nonatomic) IBOutlet MKMapView *userMapView;
 - (IBAction)contactPickerButtonPressed:(UIButton *)sender;

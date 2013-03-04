@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) NSMutableArray *messageMaps;
 @property (nonatomic, strong) dispatch_semaphore_t semaphore;
+@property (nonatomic, strong) NSString *userNumber;
 //@property (nonatomic, strong) MKMapView *map;
 @end
 
@@ -30,7 +31,7 @@
     if (self) {
         // Custom initialization
         self.messages = [NSMutableArray new];
-        [self getAllMessages];
+        //[self getAllMessages];
         
 
         
@@ -38,15 +39,6 @@
     return self;
 }
 
-- (void) getUUId {
-    NSString *uuidString = nil;
-    CFUUIDRef uuid = CFUUIDCreate(NULL);
-    if (uuid) {
-        uuidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
-        CFRelease(uuid);
-    }
-    self.userId =  uuidString;
-}
 
 - (void)viewDidLoad
 {
@@ -64,6 +56,7 @@
 //    self.refreshControl = refreshControl;
     
     [self getUUId];
+    self.userNumber = [self getPhoneNumberFromUserDefaults];
     self.semaphore = dispatch_semaphore_create(0);
 
     self.messageMaps = [NSMutableArray new];
@@ -100,22 +93,45 @@
     }
 }
 
+
+-(NSString *) getPhoneNumberFromUserDefaults {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *number = [userDefaults stringForKey:@"number"];
+    return number;
+}
+
+
+- (void) getUUId {
+    NSString *uuidString = nil;
+    CFUUIDRef uuid = CFUUIDCreate(NULL);
+    if (uuid) {
+        uuidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+        CFRelease(uuid);
+    }
+    self.userId =  uuidString;
+}
+
+
+
 - (void) getAllMessages {
     FirebaseComm *fbc = [[FirebaseComm alloc] init]; 
-     [fbc initRecvFirebase:@"Ran"];
+     [fbc initRecvFirebase:self.userNumber];
     fbc.drops = [NSMutableArray new];
      
      fbCallback callback = ^(FDataSnapshot *snapshot) {
          NSDictionary *recv = [snapshot val];
-         for (NSString *key in recv) {
-             if (![fbc.drops containsObject:[recv objectForKey:key]]) {
-                 NSLog(@"Added %@\n", [recv objectForKey:key]);
-                 //[fbc.drops addObject:[recv objectForKey:key]];
-                 [fbc.drops addObject:[recv objectForKey:key]];
-
+         if (![recv isEqual:[NSNull null]]) {
+             for (NSString *key in recv) {
+                 if (![fbc.drops containsObject:[recv objectForKey:key]]) {
+                     NSLog(@"Added %@\n", [recv objectForKey:key]);
+                     //[fbc.drops addObject:[recv objectForKey:key]];
+                     [fbc.drops addObject:[recv objectForKey:key]];
+                     
+                 }
              }
+ 
          }
-         
+                  
          
          self.messages = fbc.drops;
          //[self populateMapViews];
@@ -124,7 +140,7 @@
          dispatch_semaphore_signal(self.semaphore);
      };
      
-     [fbc loadReceivedFromFirebase:@"Ran" withCallback:callback];
+     [fbc loadReceivedFromFirebase:self.userNumber withCallback:callback];
      
     //return fbc.drops;
 }

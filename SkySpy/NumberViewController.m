@@ -30,7 +30,7 @@
 }
 
 - (IBAction)saveButtonPressed:(UIButton *)sender {
-    if (self.numberTextField) {
+    if (self.numberTextField.text) {
         [self savePhoneNumberToUserDefaults:self.numberTextField.text];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
