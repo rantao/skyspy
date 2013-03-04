@@ -15,11 +15,12 @@
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
-@interface DropMessageViewController () <CLLocationManagerDelegate>
+@interface DropMessageViewController () <CLLocationManagerDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UIView *cameraView;
 @property (nonatomic, strong) CaptureSessionManager *captureManager;
 @property (nonatomic, retain) UILabel *instructions;
 @property (nonatomic, retain) UILabel *msg;
+@property (nonatomic, strong) UITextField *skyMessage;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) CMMotionManager *motionManager;
@@ -43,9 +44,6 @@
         self.message = @"Hi Ran";
         self.view.backgroundColor = [UIColor blackColor];
         [self setCaptureSession:[[AVCaptureSession alloc] init]];
-
-        //self.cameraView = [[UIView alloc] initWithFrame:self.view.frame];
-        //[self.view addSubview:self.cameraView];
     }
     return self;
 }
@@ -61,6 +59,18 @@
     self.dropButton.alpha = 0.0;
     self.dropButton.userInteractionEnabled = NO;
     [self.view addSubview:self.dropButton];
+    
+    // Textfield for sky writing message
+    self.skyMessage = [[UITextField alloc] initWithFrame: CGRectMake(40, self.view.frame.size.height/4.0, self.view.frame.size.width-80, self.view.frame.size.height/2.0)];
+    self.skyMessage.placeholder = @"enter secret...";
+    self.skyMessage.textAlignment = NSTextAlignmentCenter;
+    self.skyMessage.returnKeyType = UIReturnKeyDone;
+    self.skyMessage.textColor = [UIColor whiteColor];
+    self.skyMessage.font = [UIFont fontWithName:@"Renegade Master" size:20];
+    self.skyMessage.hidden = YES;
+    self.skyMessage.delegate = self;
+    [self.view addSubview:self.skyMessage];
+
     
     // Start tracking pitch
     self.motionManager = [[CMMotionManager alloc] init];
@@ -90,6 +100,7 @@
                                                          animations:^{
                                                              self.msg.alpha = 1.0;
                                                              self.dropButton.alpha = 1.0;
+                                                             self.skyMessage.hidden = NO;
                                                          }];
                                     }
                                 }];
@@ -153,6 +164,9 @@
 - (void) dropButtonPressed: (UIButton *) sender {
     self.fromUser = @"Jim";
     self.toUser = @"Ran";
+    if (self.skyMessage.text) {
+        self.message = self.skyMessage.text;
+    }
     
     FirebaseComm *fbc = [[FirebaseComm alloc] init];
     [fbc initRecvFirebase:self.toUser];
@@ -169,6 +183,18 @@
 {
     CLLocation *loc = [locations lastObject];
     self.coords = [loc coordinate];
+}
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.skyMessage resignFirstResponder];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField setUserInteractionEnabled:YES];
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
