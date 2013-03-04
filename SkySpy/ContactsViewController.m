@@ -8,8 +8,10 @@
 
 #import "ContactsViewController.h"
 #import "MapAnnotation.h"
+#import <MessageUI/MFMessageComposeViewController.h>
 
-@interface ContactsViewController ()
+
+@interface ContactsViewController () <MFMessageComposeViewControllerDelegate>
 
 @end
 
@@ -52,6 +54,40 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 
+- (IBAction)sendButtonPressed:(UIButton *)sender {
+    // open SMS/Message interface
+    // ideally we would skip this and send automatically via Twilio or some other messaging API
+    [self sendSMS:[NSString stringWithFormat:@"Pick up a secret message I dropped for you at this location: http://ephexi.com/skyspy/%@",self.phoneNumber] recipientList:[NSArray arrayWithObjects:self.phoneNumber, nil]];
+
+}
+
+- (void)sendSMS:(NSString *)bodyOfMessage recipientList:(NSArray *)recipients
+{
+    MFMessageComposeViewController *controller =[MFMessageComposeViewController new];
+    if([MFMessageComposeViewController canSendText])
+    {
+        controller.body = bodyOfMessage;
+        controller.recipients = recipients;
+        controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES completion:nil];    }
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    if (result == MessageComposeResultCancelled) {
+        NSLog(@"Message cancelled");
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else if (result == MessageComposeResultSent) {
+        NSLog(@"Message sent");
+        [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    }else {
+        NSLog(@"Message failed");
+    }
+}
+
 - (void)peoplePickerNavigationControllerDidCancel:
 (ABPeoplePickerNavigationController *)peoplePicker
 {
@@ -63,10 +99,11 @@
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
     
-    [self displayPerson:person];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self displayPerson:person];
+//    self.sendButton.enabled = YES;
+//    [self dismissViewControllerAnimated:YES completion:nil];
     
-    return NO;
+    return YES;
 }
 
 - (BOOL)peoplePickerNavigationController:
@@ -75,21 +112,33 @@
                                 property:(ABPropertyID)property
                               identifier:(ABMultiValueIdentifier)identifier
 {
-    return NO;
+    NSLog(@"person is %@, property is %d, identifier is %d", person, property, identifier);
+    ABMultiValueRef phoneProperty = ABRecordCopyValue(person,property);
+	NSString *phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneProperty,identifier);
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonLastNameProperty);
+    
+    self.contactPickerButton.titleLabel.text = [NSString stringWithFormat:@"TO: %@ %@",firstName, lastName];
+	self.phoneNumber = phone;
+	self.sendButton.enabled = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+	return NO;
 }
 
 - (void)displayPerson:(ABRecordRef)person
 {
-    NSString* name = (__bridge_transfer NSString*)ABRecordCopyValue(person,
-                                                                    kABPersonFirstNameProperty);
-    self.contactNameLabel.text = name;
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonLastNameProperty);
+
+    self.contactPickerButton.titleLabel.text = [NSString stringWithFormat:@"TO: %@ %@",firstName, lastName];
     
     NSString* phone = nil;
-    ABMultiValueRef phoneNumbers = ABRecordCopyValue(person,
-                                                     kABPersonPhoneProperty);
+    ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
+   
+
     if (ABMultiValueGetCount(phoneNumbers) > 0) {
-        phone = (__bridge_transfer NSString*)
-        ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+        NSLog(@"# of phone numbers: %ld", ABMultiValueGetCount(phoneNumbers));
+        phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
     } else {
         phone = @"[None]";
     }

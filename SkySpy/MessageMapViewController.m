@@ -7,6 +7,7 @@
 //
 
 #import "MessageMapViewController.h"
+#import "MapAnnotation.h"
 
 @interface MessageMapViewController () <MKMapViewDelegate>
 
@@ -30,6 +31,9 @@
     self.dateLabel.text = self.date;
     self.timeLabel.text = self.time;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.mapCenter, 500, 500);
+    MapAnnotation *messageAnnotation = [MapAnnotation new];
+    messageAnnotation.coordinate = self.mapCenter;
+    [self.messageMapView addAnnotation:messageAnnotation];
     [self.messageMapView setRegion:region animated:NO];
 }
 

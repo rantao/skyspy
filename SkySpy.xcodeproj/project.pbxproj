@@ -33,6 +33,7 @@
 		25596AD716E43C6500EFC691 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596AD616E43C6500EFC691 /* ContactsViewController.xib */; };
 		25596AD916E4460F00EFC691 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596AD816E4460E00EFC691 /* AddressBook.framework */; };
 		25596ADC16E44A8D00EFC691 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596ADB16E44A8C00EFC691 /* MapAnnotation.m */; };
+		25596ADE16E4A01400EFC691 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596ADD16E4A01400EFC691 /* MessageUI.framework */; };
 		2591EA8C16E2A89D00C352B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8B16E2A89D00C352B9 /* UIKit.framework */; };
 		2591EA8E16E2A89D00C352B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8D16E2A89D00C352B9 /* Foundation.framework */; };
 		2591EA9016E2A89D00C352B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8F16E2A89D00C352B9 /* CoreGraphics.framework */; };
@@ -86,6 +87,7 @@
 		25596AD816E4460E00EFC691 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		25596ADA16E44A8B00EFC691 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		25596ADB16E44A8C00EFC691 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
+		25596ADD16E4A01400EFC691 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2591EA8816E2A89D00C352B9 /* SkySpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkySpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591EA8B16E2A89D00C352B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2591EA8D16E2A89D00C352B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -115,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25596ADE16E4A01400EFC691 /* MessageUI.framework in Frameworks */,
 				25596AD916E4460F00EFC691 /* AddressBook.framework in Frameworks */,
 				25596AD516E439CC00EFC691 /* AddressBookUI.framework in Frameworks */,
 				2591EA8C16E2A89D00C352B9 /* UIKit.framework in Frameworks */,
@@ -155,6 +158,7 @@
 		2591EA8A16E2A89D00C352B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25596ADD16E4A01400EFC691 /* MessageUI.framework */,
 				25596AD816E4460E00EFC691 /* AddressBook.framework */,
 				25596AD416E439CC00EFC691 /* AddressBookUI.framework */,
 				25596AC416E34F7700EFC691 /* MapKit.framework */,

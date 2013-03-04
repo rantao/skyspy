@@ -64,6 +64,8 @@
     // Textfield for sky writing message
     self.skyMessage = [[UITextField alloc] initWithFrame: CGRectMake(40, self.view.frame.size.height/4.0, self.view.frame.size.width-80, 100)];
     self.skyMessage.placeholder = @"enter secret...";
+    self.skyMessage.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.skyMessage.autocorrectionType = UITextAutocorrectionTypeNo;
     self.skyMessage.textAlignment = NSTextAlignmentCenter;
     self.skyMessage.returnKeyType = UIReturnKeyDone;
     self.skyMessage.textColor = [UIColor whiteColor];

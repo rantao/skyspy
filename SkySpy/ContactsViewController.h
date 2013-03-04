@@ -14,10 +14,11 @@
 @interface ContactsViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *contactPickerButton;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contactNameLabel;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic) CLLocationCoordinate2D location;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak,nonatomic) IBOutlet MKMapView *userMapView;
 - (IBAction)contactPickerButtonPressed:(UIButton *)sender;
+- (IBAction)sendButtonPressed:(UIButton *)sender;
 @end
