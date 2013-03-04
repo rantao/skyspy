@@ -9,6 +9,7 @@
 #import "DropMessageViewController.h"
 #import "CaptureSessionManager.h"
 #import "FirebaseComm.h"
+#import "ContactsViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMotion/CoreMotion.h>
 #import <CoreLocation/CoreLocation.h>
@@ -176,7 +177,12 @@
                withDate:[NSDate date]
            withLocation:self.coords
                withRoll:RADIANS_TO_DEGREES(self.attitude.pitch)];
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    //[[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    ContactsViewController *contactsViewController = [ContactsViewController new];
+    contactsViewController.message = self.message;
+    contactsViewController.location = self.coords;
+    [self presentViewController:contactsViewController animated:YES completion:nil];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
