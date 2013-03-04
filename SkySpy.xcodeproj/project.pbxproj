@@ -35,8 +35,8 @@
 		25596AD916E4460F00EFC691 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596AD816E4460E00EFC691 /* AddressBook.framework */; };
 		25596ADC16E44A8D00EFC691 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596ADB16E44A8C00EFC691 /* MapAnnotation.m */; };
 		25596ADE16E4A01400EFC691 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596ADD16E4A01400EFC691 /* MessageUI.framework */; };
-		25596AE116E4BF7D00EFC691 /* AskForNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596AE016E4BF7C00EFC691 /* AskForNumberView.m */; };
-		25596AE316E4BF9C00EFC691 /* AskForNumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596AE216E4BF9B00EFC691 /* AskForNumberView.xib */; };
+		25596AE716E5268E00EFC691 /* NumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596AE516E5268E00EFC691 /* NumberViewController.m */; };
+		25596AE816E5268E00EFC691 /* NumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596AE616E5268E00EFC691 /* NumberViewController.xib */; };
 		2591EA8C16E2A89D00C352B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8B16E2A89D00C352B9 /* UIKit.framework */; };
 		2591EA8E16E2A89D00C352B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8D16E2A89D00C352B9 /* Foundation.framework */; };
 		2591EA9016E2A89D00C352B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8F16E2A89D00C352B9 /* CoreGraphics.framework */; };
@@ -93,9 +93,9 @@
 		25596ADA16E44A8B00EFC691 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		25596ADB16E44A8C00EFC691 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
 		25596ADD16E4A01400EFC691 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		25596ADF16E4BF7A00EFC691 /* AskForNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskForNumberView.h; sourceTree = "<group>"; };
-		25596AE016E4BF7C00EFC691 /* AskForNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskForNumberView.m; sourceTree = "<group>"; };
-		25596AE216E4BF9B00EFC691 /* AskForNumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskForNumberView.xib; sourceTree = "<group>"; };
+		25596AE416E5268E00EFC691 /* NumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberViewController.h; sourceTree = "<group>"; };
+		25596AE516E5268E00EFC691 /* NumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberViewController.m; sourceTree = "<group>"; };
+		25596AE616E5268E00EFC691 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
 		2591EA8816E2A89D00C352B9 /* SkySpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkySpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591EA8B16E2A89D00C352B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2591EA8D16E2A89D00C352B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -194,9 +194,9 @@
 				2591EAB016E2D1CD00C352B9 /* SplashViewController.h */,
 				2591EAB116E2D1CD00C352B9 /* SplashViewController.m */,
 				25596A5C16E327DF00EFC691 /* SplashViewController.xib */,
-				25596ADF16E4BF7A00EFC691 /* AskForNumberView.h */,
-				25596AE016E4BF7C00EFC691 /* AskForNumberView.m */,
-				25596AE216E4BF9B00EFC691 /* AskForNumberView.xib */,
+				25596AE416E5268E00EFC691 /* NumberViewController.h */,
+				25596AE516E5268E00EFC691 /* NumberViewController.m */,
+				25596AE616E5268E00EFC691 /* NumberViewController.xib */,
 				25596A4E16E2EB7800EFC691 /* PickupMessageViewController.h */,
 				25596A4F16E2EB7800EFC691 /* PickupMessageViewController.m */,
 				25596ABB16E33DEF00EFC691 /* PickupMessageViewController.xib */,
@@ -314,7 +314,7 @@
 				25596ACB16E3FACF00EFC691 /* MessageTableCell.xib in Resources */,
 				25596AD016E4009800EFC691 /* MessageMapViewController.xib in Resources */,
 				25596AD716E43C6500EFC691 /* ContactsViewController.xib in Resources */,
-				25596AE316E4BF9C00EFC691 /* AskForNumberView.xib in Resources */,
+				25596AE816E5268E00EFC691 /* NumberViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,8 +337,8 @@
 				25596ACF16E4009800EFC691 /* MessageMapViewController.m in Sources */,
 				25596AD316E437B100EFC691 /* ContactsViewController.m in Sources */,
 				25596ADC16E44A8D00EFC691 /* MapAnnotation.m in Sources */,
-				25596AE116E4BF7D00EFC691 /* AskForNumberView.m in Sources */,
 				15A43F9016E4C109007D3AF2 /* SecretViewController.m in Sources */,
+				25596AE716E5268E00EFC691 /* NumberViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

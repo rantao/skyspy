@@ -9,7 +9,7 @@
 #import "SplashViewController.h"
 #import "DropMessageViewController.h"
 #import "PickupMessageViewController.h"
-#import "AskForNumberView.h"
+#import "NumberViewController.h"
 
 @interface SplashViewController ()
 @property (nonatomic, strong) DropMessageViewController *dropMessageViewController;
@@ -34,16 +34,20 @@
     self.skySpyTitleLabel.text = @"sky spy";
     self.skySpyTitleLabel.numberOfLines = 2;
     self.skySpyTitleLabel.textAlignment = NSTextAlignmentRight;
+  
     
+
+}
+
+-(void) viewDidAppear:(BOOL)animated {
     //GET USER PHONE NUMBER IF THEY HAVENT SAVED IT YET
     self.userPhoneNumber = [self getPhoneNumberFromUserDefaults];
     
     if (self.userPhoneNumber.length == 0) {
-        AskForNumberView *askForNumberView = [[AskForNumberView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
-        [self.view addSubview:askForNumberView];
+        NumberViewController *askForNumberViewController = [NumberViewController new];
+        [self presentViewController:askForNumberViewController animated:NO completion:nil];
+        
     }
-    
-
 }
 
 

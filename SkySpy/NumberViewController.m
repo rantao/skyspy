@@ -1,37 +1,38 @@
 //
-//  AskForNumberView.m
+//  NumberViewController.m
 //  SkySpy
 //
 //  Created by Ran Tao on 3.4.13.
 //  Copyright (c) 2013 Ran Tao. All rights reserved.
 //
 
-#import "AskForNumberView.h"
+#import "NumberViewController.h"
 
-@implementation AskForNumberView
+@interface NumberViewController ()
 
-- (id)initWithFrame:(CGRect)frame
+@end
+
+@implementation NumberViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code
+        // Custom initialization
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)viewDidLoad
 {
-    // Drawing code
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
 }
-*/
 
 - (IBAction)saveButtonPressed:(UIButton *)sender {
     if (self.numberTextField) {
         [self savePhoneNumberToUserDefaults:self.numberTextField.text];
-        [self removeFromSuperview];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -51,6 +52,13 @@
 -(void) savePhoneNumberToUserDefaults:(NSString*) number {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:number forKey:@"number"];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end
