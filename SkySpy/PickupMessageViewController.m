@@ -69,8 +69,8 @@
     self.messageMaps = [NSMutableArray new];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = @"Loading";
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = @"Loading...";
     [hud showAnimated:YES
   whileExecutingBlock:^(void)
     {
