@@ -18,6 +18,9 @@
 
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSString *msg;
+@property (nonatomic) CLLocationDistance radius;
+@property (nonatomic, strong) NSString *dropPointName;
 @property (nonatomic) CLLocationCoordinate2D mapCenter;
 - (IBAction)backButtonPressed:(UIButton *)sender;
 

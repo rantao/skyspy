@@ -8,12 +8,11 @@
 
 #import "MessageMapViewController.h"
 #import "MapAnnotation.h"
+#import "SecretViewController.h"
 
 @interface MessageMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) CLLocationCoordinate2D dropPoint;
-@property (nonatomic) CLLocationDistance radius;
-@property (nonatomic, strong) NSString *dropPointName;
 @end
 
 
@@ -51,9 +50,12 @@
         ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
          [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
             CLLocationDistance radius = self.radius; // 10 meter radius
-            CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:self.dropPoint
+            CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:self.mapCenter
                                                                        radius:radius
                                                                    identifier:self.dropPointName];
+            NSLog(@"here");
+            NSLog(@"%f", self.mapCenter.latitude);
+            NSLog(@"%f", self.mapCenter.longitude);
             [self.locationManager startMonitoringForRegion:region];
         }
     
@@ -62,20 +64,28 @@
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
+    NSLog(@"in region\n");
     if ([region.identifier isEqualToString:self.dropPointName])
     {
-        // Present camera view controller
+        SecretViewController *svc = [SecretViewController new];
+        svc.msg = self.msg;
+        [self presentViewController:svc animated:YES completion:nil];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
+    NSLog(@"exit region\n");
     if ([region.identifier isEqualToString:self.dropPointName])
     {
-        // Remove camera view controller
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"error\n");
+}
 
 - (IBAction)backButtonPressed:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

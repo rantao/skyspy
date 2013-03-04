@@ -242,11 +242,15 @@
     MKMapView *currentMap = [self.messageMaps objectAtIndex:indexPath.row];
     NSString *messageDate = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"date"];
     NSString *messageTime = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"time"];
+    NSString *messageMsg = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"message"];
     NSLog(@"indexpath row is: %ld\nmessageDate is: %@\nmessageTime is: %@",(long)indexPath.row, messageDate, messageTime);
 
     messageMapViewController.date = messageDate;
     messageMapViewController.time = messageTime;
+    messageMapViewController.msg = messageMsg;
+    messageMapViewController.radius = 10;
     messageMapViewController.mapCenter = currentMap.centerCoordinate;
+    messageMapViewController.dropPointName = [messageDate stringByAppendingString:messageTime];
     [self presentViewController:messageMapViewController animated:YES completion:nil];
     
 }

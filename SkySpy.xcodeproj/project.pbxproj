@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1565044316E3E99B00D57F77 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1565044216E3E99B00D57F77 /* MBProgressHUD.m */; };
+		15A43F9016E4C109007D3AF2 /* SecretViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A43F8F16E4C109007D3AF2 /* SecretViewController.m */; };
 		15F01FED16E2DAE6009DEAAF /* FirebaseComm.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */; };
 		15F01FEF16E2DFC2009DEAAF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */; };
 		15F01FF116E2E07C009DEAAF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F01FF016E2E07C009DEAAF /* CoreMotion.framework */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		1565044116E3E99B00D57F77 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		1565044216E3E99B00D57F77 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		15A43F8E16E4C109007D3AF2 /* SecretViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretViewController.h; sourceTree = "<group>"; };
+		15A43F8F16E4C109007D3AF2 /* SecretViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretViewController.m; sourceTree = "<group>"; };
 		15F01FEB16E2DAE5009DEAAF /* FirebaseComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseComm.h; sourceTree = "<group>"; };
 		15F01FEC16E2DAE6009DEAAF /* FirebaseComm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseComm.m; sourceTree = "<group>"; };
 		15F01FEE16E2DFC2009DEAAF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -197,6 +200,8 @@
 				25596ACA16E3FACF00EFC691 /* MessageTableCell.xib */,
 				25596A4B16E2EB3D00EFC691 /* DropMessageViewController.h */,
 				25596A4C16E2EB3D00EFC691 /* DropMessageViewController.m */,
+				15A43F8E16E4C109007D3AF2 /* SecretViewController.h */,
+				15A43F8F16E4C109007D3AF2 /* SecretViewController.m */,
 				25596AD116E437B000EFC691 /* ContactsViewController.h */,
 				25596AD216E437B100EFC691 /* ContactsViewController.m */,
 				25596AD616E43C6500EFC691 /* ContactsViewController.xib */,
@@ -323,6 +328,7 @@
 				25596ACF16E4009800EFC691 /* MessageMapViewController.m in Sources */,
 				25596AD316E437B100EFC691 /* ContactsViewController.m in Sources */,
 				25596ADC16E44A8D00EFC691 /* MapAnnotation.m in Sources */,
+				15A43F9016E4C109007D3AF2 /* SecretViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
