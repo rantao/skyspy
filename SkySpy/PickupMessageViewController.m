@@ -56,6 +56,13 @@
     self.messageTableView.delegate = self;
     self.messageTableView.dataSource = self;
     self.messageTableView.hidden = YES;
+    self.messageTableView.backgroundColor = [UIColor clearColor];
+    
+//    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+//    [refreshControl addTarget:self action:@selector(refresh)
+//             forControlEvents:UIControlEventValueChanged];
+//    self.refreshControl = refreshControl;
+    
     [self getUUId];
     self.semaphore = dispatch_semaphore_create(0);
 
@@ -174,6 +181,8 @@
     cell.timeLabel.text = (NSString*)[[self.messages objectAtIndex:[indexPath row]] objectForKey:@"time"];
     MKMapView *currentMap = [self.messageMaps objectAtIndex:indexPath.row];
     cell.messageMapView.region = currentMap.region;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     
     return cell;
 }
