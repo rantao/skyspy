@@ -158,6 +158,11 @@
  
     // Return the number of sections.
     //self.messages = [self getAllMessages];
+    if (self.messages.count == 0) {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"messageTableEmpty_bg.png"]];
+    } else {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"messageTable_bg.png"]];
+    }
     return [self.messages count];
 }
 
@@ -275,6 +280,13 @@
 - (IBAction)dropButtonPressed:(UIButton *)sender {
     DropMessageViewController *dropMessageViewController = [DropMessageViewController new];
     [self presentViewController:dropMessageViewController animated:YES completion:nil];
+}
+
+- (IBAction)refreshButtonPressed:(UIButton *)sender {
+    [self getAllMessages];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    [self populateMapViews];
+    [self.messageTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

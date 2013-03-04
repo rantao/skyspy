@@ -37,6 +37,10 @@
 		25596ADE16E4A01400EFC691 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25596ADD16E4A01400EFC691 /* MessageUI.framework */; };
 		25596AE716E5268E00EFC691 /* NumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25596AE516E5268E00EFC691 /* NumberViewController.m */; };
 		25596AE816E5268E00EFC691 /* NumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25596AE616E5268E00EFC691 /* NumberViewController.xib */; };
+		25596AEB16E5471400EFC691 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AE916E5471400EFC691 /* refresh.png */; };
+		25596AEC16E5471400EFC691 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AEA16E5471400EFC691 /* refresh@2x.png */; };
+		25596AEF16E5486800EFC691 /* messageTableEmpty_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AED16E5486800EFC691 /* messageTableEmpty_bg.png */; };
+		25596AF016E5486800EFC691 /* messageTableEmpty_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25596AEE16E5486800EFC691 /* messageTableEmpty_bg@2x.png */; };
 		2591EA8C16E2A89D00C352B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8B16E2A89D00C352B9 /* UIKit.framework */; };
 		2591EA8E16E2A89D00C352B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8D16E2A89D00C352B9 /* Foundation.framework */; };
 		2591EA9016E2A89D00C352B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2591EA8F16E2A89D00C352B9 /* CoreGraphics.framework */; };
@@ -96,6 +100,10 @@
 		25596AE416E5268E00EFC691 /* NumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberViewController.h; sourceTree = "<group>"; };
 		25596AE516E5268E00EFC691 /* NumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberViewController.m; sourceTree = "<group>"; };
 		25596AE616E5268E00EFC691 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
+		25596AE916E5471400EFC691 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		25596AEA16E5471400EFC691 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
+		25596AED16E5486800EFC691 /* messageTableEmpty_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messageTableEmpty_bg.png; sourceTree = "<group>"; };
+		25596AEE16E5486800EFC691 /* messageTableEmpty_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageTableEmpty_bg@2x.png"; sourceTree = "<group>"; };
 		2591EA8816E2A89D00C352B9 /* SkySpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkySpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591EA8B16E2A89D00C352B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2591EA8D16E2A89D00C352B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -229,6 +237,10 @@
 		2591EA9216E2A89D00C352B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				25596AED16E5486800EFC691 /* messageTableEmpty_bg.png */,
+				25596AEE16E5486800EFC691 /* messageTableEmpty_bg@2x.png */,
+				25596AE916E5471400EFC691 /* refresh.png */,
+				25596AEA16E5471400EFC691 /* refresh@2x.png */,
 				25596AC616E35F7500EFC691 /* messageTable_bg.png */,
 				25596AC716E35F7500EFC691 /* messageTable_bg@2x.png */,
 				25596A4716E2E8CE00EFC691 /* dropbutton.png */,
@@ -315,6 +327,10 @@
 				25596AD016E4009800EFC691 /* MessageMapViewController.xib in Resources */,
 				25596AD716E43C6500EFC691 /* ContactsViewController.xib in Resources */,
 				25596AE816E5268E00EFC691 /* NumberViewController.xib in Resources */,
+				25596AEB16E5471400EFC691 /* refresh.png in Resources */,
+				25596AEC16E5471400EFC691 /* refresh@2x.png in Resources */,
+				25596AEF16E5486800EFC691 /* messageTableEmpty_bg.png in Resources */,
+				25596AF016E5486800EFC691 /* messageTableEmpty_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

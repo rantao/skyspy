@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *messageTableView;
 @property (weak, nonatomic) IBOutlet UIButton *dropButton;
 - (IBAction)dropButtonPressed:(UIButton *)sender;
+- (IBAction)refreshButtonPressed:(UIButton *)sender;
 
 @end
