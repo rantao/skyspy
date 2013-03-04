@@ -8,10 +8,15 @@
 
 #import "ContactsViewController.h"
 #import "MapAnnotation.h"
+#import "FirebaseComm.h"
 #import <MessageUI/MFMessageComposeViewController.h>
 
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
 @interface ContactsViewController () <MFMessageComposeViewControllerDelegate>
+@property (nonatomic, strong) NSString *fromUser;
+@property (nonatomic, strong) NSString *toUser;
+@property (nonatomic, strong) NSString *userNumber;
 
 @end
 
@@ -38,13 +43,19 @@
     [self.userMapView addAnnotation:messageAnnotation];
     [self.userMapView setRegion:region animated:NO];
     
+    self.userNumber = [self getPhoneNumberFromUserDefaults];
+
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+-(NSString *) getPhoneNumberFromUserDefaults {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *number = [userDefaults stringForKey:@"number"];
+    return number;
 }
+
 
 - (IBAction)contactPickerButtonPressed:(UIButton *)sender {
     ABPeoplePickerNavigationController *picker =
@@ -54,9 +65,26 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 
+
+-(void) sendMessageToFirebase {
+    self.fromUser = self.userNumber;
+    self.toUser = self.phoneNumber;
+
+    FirebaseComm *fbc = [[FirebaseComm alloc] init];
+    [fbc initRecvFirebase:self.toUser];
+    [fbc pushToFirebase:self.fromUser
+                 toUser:self.toUser
+            withMessage:self.message
+               withDate:[NSDate date]
+           withLocation:self.location
+               withRoll:RADIANS_TO_DEGREES(self.attitude.pitch)];
+}
+
+
 - (IBAction)sendButtonPressed:(UIButton *)sender {
     // open SMS/Message interface
     // ideally we would skip this and send automatically via Twilio or some other messaging API
+    [self sendMessageToFirebase];
     [self sendSMS:[NSString stringWithFormat:@"Pick up a secret message I dropped for you at this location: http://ephexi.com/skyspy/%@",self.phoneNumber] recipientList:[NSArray arrayWithObjects:self.phoneNumber, nil]];
 
 }
@@ -99,10 +127,6 @@
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
     
-//    [self displayPerson:person];
-//    self.sendButton.enabled = YES;
-//    [self dismissViewControllerAnimated:YES completion:nil];
-    
     return YES;
 }
 
@@ -119,31 +143,25 @@
     NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonLastNameProperty);
     
     self.contactPickerButton.titleLabel.text = [NSString stringWithFormat:@"TO: %@ %@",firstName, lastName];
-	self.phoneNumber = phone;
+    
+    
+    NSMutableString *strippedPhone = [NSMutableString new];
+    for (int i=0; i<[phone length]; i++) {
+        if (isdigit([phone characterAtIndex:i])) {
+            [strippedPhone appendFormat:@"%c",[phone characterAtIndex:i]];
+        }
+    }
+	self.phoneNumber = strippedPhone;
 	self.sendButton.enabled = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 	return NO;
 }
 
-- (void)displayPerson:(ABRecordRef)person
+
+- (void)didReceiveMemoryWarning
 {
-    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonFirstNameProperty);
-    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonLastNameProperty);
-
-    self.contactPickerButton.titleLabel.text = [NSString stringWithFormat:@"TO: %@ %@",firstName, lastName];
-    
-    NSString* phone = nil;
-    ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
-   
-
-    if (ABMultiValueGetCount(phoneNumbers) > 0) {
-        NSLog(@"# of phone numbers: %ld", ABMultiValueGetCount(phoneNumbers));
-        phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
-    } else {
-        phone = @"[None]";
-    }
-    self.phoneNumber = phone;
-    CFRelease(phoneNumbers);
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

@@ -29,6 +29,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UIButton *dropButton;
 @property (nonatomic) CLLocationCoordinate2D coords;
+@property (nonatomic, strong) NSString *userNumber;
 @end
 
 @implementation DropMessageViewController
@@ -42,7 +43,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.message = @"Hi Ran";
+        self.message = @"i know a secret you don't know";
         self.view.backgroundColor = [UIColor blackColor];
         [self setCaptureSession:[[AVCaptureSession alloc] init]];
     }
@@ -73,6 +74,8 @@
     self.skyMessage.hidden = YES;
     self.skyMessage.delegate = self;
     [self.view addSubview:self.skyMessage];
+    
+    self.userNumber = [self getPhoneNumberFromUserDefaults];
 
     
     // Start tracking pitch
@@ -130,6 +133,15 @@
 }
 
 
+
+-(NSString *) getPhoneNumberFromUserDefaults {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *number = [userDefaults stringForKey:@"number"];
+    return number;
+}
+
+
+
 -(void) showCameraFeed {
 	[self setCaptureManager:[CaptureSessionManager new]];
     
@@ -155,7 +167,7 @@
     self.msg.backgroundColor = [UIColor clearColor];
     self.msg.font =[UIFont fontWithName:@"Helevtica Neue Light" size: 18.0];
     self.msg.textColor = [UIColor whiteColor];
-	self.msg.text = self.message;
+	self.msg.text = @"Hi there!";
     self.msg.textAlignment = NSTextAlignmentCenter;
     self.msg.hidden = NO;
     self.msg.alpha = 0.0;
@@ -165,12 +177,24 @@
 }
 
 - (void) dropButtonPressed: (UIButton *) sender {
-    self.fromUser = @"Jim";
-    self.toUser = @"Ran";
     if (self.skyMessage.text) {
         self.message = self.skyMessage.text;
     }
+    //[self sendMessageToFirebase];
+   
+    //[[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    ContactsViewController *contactsViewController = [ContactsViewController new];
+    contactsViewController.message = self.message;
+    contactsViewController.location = self.coords;
+    contactsViewController.attitude = self.attitude;
+    [self presentViewController:contactsViewController animated:YES completion:nil];
     
+}
+
+-(void) sendMessageToFirebase {
+    self.fromUser = self.userNumber;
+    self.toUser = @"Ran";
+       
     FirebaseComm *fbc = [[FirebaseComm alloc] init];
     [fbc initRecvFirebase:self.toUser];
     [fbc pushToFirebase:self.fromUser
@@ -179,12 +203,6 @@
                withDate:[NSDate date]
            withLocation:self.coords
                withRoll:RADIANS_TO_DEGREES(self.attitude.pitch)];
-    //[[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    ContactsViewController *contactsViewController = [ContactsViewController new];
-    contactsViewController.message = self.message;
-    contactsViewController.location = self.coords;
-    [self presentViewController:contactsViewController animated:YES completion:nil];
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
